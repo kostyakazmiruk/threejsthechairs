@@ -11,6 +11,9 @@ import {Html, useGLTFLoader} from "drei";
 //Page state
 import state from './components/state'
 
+// Intersection observer
+import {useInView} from "react-intersection-observer";
+
 const Model = ({modelPath}) => {
     const gltf = useGLTFLoader(modelPath, true)
     return <primitive object={gltf.scene} dispose={null}></primitive>
@@ -29,7 +32,7 @@ const Lights = () => {
 
 
 
-const HTMLContent = ({domContent, children, modelPath, positionY}) => {
+const HTMLContent = ({bgColor, domContent, children, modelPath, positionY}) => {
     const ref = useRef()
     useFrame(() => {
         ref.current.rotation.y += 0.01
@@ -40,6 +43,15 @@ const HTMLContent = ({domContent, children, modelPath, positionY}) => {
         //     ref.current.rotation.x += 0.001
         // }
     })
+
+    const [refItem, inView] =useInView({
+        threshold: 0
+    })
+
+    useEffect(() => {
+        inView && (document.body.style.background = bgColor)
+    }, [inView])
+
     return (
         <Section factor={1.5} offset={1}>
             <group position={[0,positionY,0]}>
@@ -47,7 +59,9 @@ const HTMLContent = ({domContent, children, modelPath, positionY}) => {
                     <Model modelPath={modelPath}/>
                 </mesh>
                 <Html portal={domContent} fullscreen>
-                    {children}
+                    <div className='container' ref={refItem}>
+                        {children}
+                    </div>
                 </Html>
             </group>
         </Section>
@@ -69,20 +83,14 @@ export default function App() {
         >
             <Lights />
             <Suspense fallback={null}>
-                <HTMLContent domContent={domContent} modelPath='/armchairYellow.gltf' positionY={250}>
-                    <div className="container">
-                        <div className="title">Yellow</div>
-                    </div>
+                <HTMLContent bgColor={'#f15945'} domContent={domContent} modelPath='/armchairYellow.gltf' positionY={250}>
+                    <div className="title">Yellow</div>
                 </HTMLContent>
-                <HTMLContent domContent={domContent} modelPath='/armchairGreen.gltf' positionY={0}>
-                    <div className="container">
-                        <div className="title">Green</div>
-                    </div>
+                <HTMLContent bgColor={'#571ec1'} domContent={domContent} modelPath='/armchairGreen.gltf' positionY={0}>
+                    <div className="title">Green</div>
                 </HTMLContent>
-                <HTMLContent domContent={domContent} modelPath='/armchairGray.gltf' positionY={-250}>
-                    <div className="container">
-                        <div className="title">Gray</div>
-                    </div>
+                <HTMLContent bgColor={'#636567'} domContent={domContent} modelPath='/armchairGray.gltf' positionY={-250}>
+                    <div className="title">Gray</div>
                 </HTMLContent>
             </Suspense>
         </Canvas>
