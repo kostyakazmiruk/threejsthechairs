@@ -1,4 +1,4 @@
-import React, {Suspense, useRef} from "react";
+import React, {Suspense, useEffect, useRef} from "react";
 
 import "./App.scss"
 
@@ -56,6 +56,10 @@ const HTMLContent = ({domContent, children, modelPath, positionY}) => {
 
 export default function App() {
     const domContent = useRef()
+    const scrollArea = useRef()
+    const onScroll = (e) => (state.top.current = e.target.scrollTop)
+    useEffect(() => void onScroll({target: scrollArea.current}), [])
+
     return (
     <>
         <Header />
@@ -75,13 +79,18 @@ export default function App() {
                         <div className="title">Green</div>
                     </div>
                 </HTMLContent>
+                <HTMLContent domContent={domContent} modelPath='/armchairGray.gltf' positionY={-250}>
+                    <div className="container">
+                        <div className="title">Gray</div>
+                    </div>
+                </HTMLContent>
             </Suspense>
         </Canvas>
-        <div className="scrollArea">
+        <div className="scrollArea" ref={scrollArea} onScroll={onScroll}>
             {/*HereWeRenderOurHTMLFromCanvas*/}
             <div className="HereWeRenderOurHTMLFromCanvas" style={{position: 'sticky', top: 0}} ref={domContent}></div>
             {/*Here We return the hight of our pages*/}
-            <div style={{height: `${state.pages * 100}vh`}}></div>
+            <div style={{height: `${state.sections * 100}vh`}}></div>
         </div>
     </>
     )
