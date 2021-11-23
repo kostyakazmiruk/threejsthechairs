@@ -1,4 +1,6 @@
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This is React, ThreeJS, Drei and React-Three-Fiber project with turning chair and bcGroundColor depends on what Scene you at
+![image](https://user-images.githubusercontent.com/53175180/143017334-4db69030-c206-4110-b23e-97c9f49287ba.png)
 
 ## Available Scripts
 
