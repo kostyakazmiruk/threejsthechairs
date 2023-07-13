@@ -10,7 +10,7 @@
     "@testing-library/user-event": "^7.1.2",
     "drei": "^1.5.3",
     "lerp": "^1.0.3",
-    "react": "^16.13.1",
+    "react": "^16.14.0",
     "react-dom": "^16.13.1",
     "react-intersection-observer": "^8.28.5",
     "react-scripts": "3.4.3",
