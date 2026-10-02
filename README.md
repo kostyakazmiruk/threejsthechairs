@@ -2,6 +2,26 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 This is React, ThreeJS, Drei and React-Three-Fiber project with turning chair and bcGroundColor depends on what Scene you at
 ![image](https://user-images.githubusercontent.com/53175180/143017334-4db69030-c206-4110-b23e-97c9f49287ba.png)
 
+## Scroll showcase
+
+A 26-second recording of the running website, scrolling through **Yellow → Green → Gray** and back. The pauses show the 3D chairs rotating, while scrolling moves between models and changes the background color.
+
+![Animated scroll showcase](docs/media/scroll-showcase.gif)
+
+[Watch or download the full-quality 60 fps video](docs/media/scroll-showcase.mp4)
+
+### Running locally with modern Node.js
+
+This project uses an older Create React App toolchain. The following commands were used to run the showcase with Node.js 22, without changing the repository's dependency files:
+
+```sh
+npm install --legacy-peer-deps --package-lock=false --no-audit --no-fund
+npm install --no-save --package-lock=false --legacy-peer-deps @react-spring/three@9.3.0 @react-spring/web@9.3.0
+NODE_OPTIONS=--openssl-legacy-provider npm start
+```
+
+The React Spring versions above match the repository's lock file and avoid syntax unsupported by the old build tooling. Open http://localhost:3000 and scroll to explore the three scenes.
+
 ## Available Scripts
 
 In the project directory, you can run:
